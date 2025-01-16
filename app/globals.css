@@ -6,8 +6,46 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+H1 {
+  font-weight: bold;
+  font-size: 24px;
+  line-height: 35px;
+  letter-spacing: -0.33px;
+}
+
+H2 {
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 29px;
+  letter-spacing: -0.25px;
+}
+
+H3 {
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 26px;
+  letter-spacing: -0.25px;
+}
+
+H4 {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: -0.2px;
+}
+
 @layer base {
   :root {
     --radius: 0.5rem;
+    --promiscuousPink: rgb(173, 31, 234);
+    --bluetiful: rgb(70, 97, 230);
+    --ravenNight: rgb(55, 63, 104);
+    --snowy: rgb(255, 255, 255);
+    --cottonBall: rgb(242, 244, 255);
+    --ghostWhite: rgb(247, 248, 253);
+    --jewelCave: rgb(58, 67, 116);
+    --oceanNight: rgb(100, 113, 150);
+    --creamyPeach: rgb(244, 159, 133);
+    --blueMana: rgb(98, 188, 250);
   }
 }
