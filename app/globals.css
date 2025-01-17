@@ -37,6 +37,7 @@ H4 {
 @layer base {
   :root {
     --radius: 0.5rem;
+    --radius-sm: 5px;
     --text: rgb(58, 67, 116);
     --promiscuous-pink: 282 83% 52%;
     --bluetiful: 230 76% 59%;
