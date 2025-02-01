@@ -1,4 +1,7 @@
 import type { Config } from 'tailwindcss'
+import { statusColors } from './app/types/enums'
+
+const safeColours = statusColors.flatMap(color => [`bg-${color}`])
 
 export default {
   darkMode: ['class'],
@@ -29,5 +32,6 @@ export default {
       },
     },
   },
+  safelist: [...safeColours],
   plugins: [require('tailwindcss-animate')],
 } satisfies Config
