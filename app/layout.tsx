@@ -25,9 +25,9 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-ghostWhite px-[10%] py-[5%] antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-ghostWhite antialiased md:px-[10%] md:py-[5%]`}
       >
-        <main className='grid grid-cols-12'> {children}</main>
+        <main className='grid grid-cols-12 gap-4'> {children}</main>
       </body>
     </html>
   )

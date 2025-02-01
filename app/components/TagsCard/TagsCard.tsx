@@ -3,7 +3,7 @@ import { Card, CardContent } from '@/components/ui/card'
 
 const TagsCard = () => {
   return (
-    <Card>
+    <Card className='h-full w-full'>
       <CardContent className='flex flex-wrap gap-2'>
         <Tag label='All' value='1' interactive active />
         <Tag label='UI' value='2' interactive />

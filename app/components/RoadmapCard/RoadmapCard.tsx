@@ -4,7 +4,7 @@ import RoadmapItems from './RoadmapItems'
 
 const RoadmapCard = () => {
   return (
-    <Card>
+    <Card className='w-full'>
       <CardContent className='flex flex-wrap gap-2'>
         <div className='flex w-full items-center justify-between'>
           <span className='font-bold'>Roadmap</span>
