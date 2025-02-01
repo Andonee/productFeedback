@@ -51,3 +51,7 @@ H4 {
     --blue-mana: 204 94% 68%;
   }
 }
+
+* {
+  color: hsl(var(--raven-night));
+}
