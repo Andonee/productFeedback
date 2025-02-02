@@ -1,5 +1,8 @@
+import MainMenu from '@/components/MainMenu'
 import type { Metadata } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
+import RoadmapCard from './components/RoadmapCard'
+import TagsCard from './components/TagsCard'
 import './globals.css'
 
 const geistSans = Geist({
@@ -27,7 +30,13 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} bg-ghostWhite antialiased md:px-[10%] md:py-[5%]`}
       >
-        <main className='grid grid-cols-12 gap-4'> {children}</main>
+        <MainMenu>
+          <div className='flex flex-col gap-4 p-4'>
+            <TagsCard />
+            <RoadmapCard />
+          </div>
+        </MainMenu>
+        {children}
       </body>
     </html>
   )

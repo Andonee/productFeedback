@@ -19,8 +19,12 @@ const items: RoadmapItemType[] = [
 const RoadmapItems = () => {
   return (
     <div className='w-full'>
-      {items.map(item => (
-        <RoadmapItem status={item.status} amount={item.amount} />
+      {items.map((item, idx) => (
+        <RoadmapItem
+          status={item.status}
+          amount={item.amount}
+          key={`${idx}_${item.status}`}
+        />
       ))}
     </div>
   )
