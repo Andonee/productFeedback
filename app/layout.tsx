@@ -28,7 +28,7 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} bg-ghostWhite antialiased md:px-[10%] md:py-[5%]`}
+        className={`${geistSans.variable} ${geistMono.variable} bg-ghostWhite antialiased`}
       >
         <MainMenu>
           <div className='flex flex-col gap-4 p-4'>

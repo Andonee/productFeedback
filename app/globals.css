@@ -4,6 +4,15 @@
 
 body {
   font-family: Arial, Helvetica, sans-serif;
+  @media screen and (min-width: 768px) {
+    padding: 5% 10%;
+  }
+}
+
+html body[data-scroll-locked] {
+  @media screen and (min-width: 768px) {
+    padding: 5% 10%;
+  }
 }
 
 H1 {
@@ -52,6 +61,6 @@ H4 {
   }
 }
 
-* {
+div {
   color: hsl(var(--raven-night));
 }
