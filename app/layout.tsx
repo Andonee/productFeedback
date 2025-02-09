@@ -36,6 +36,7 @@ export default function RootLayout({
             <RoadmapCard />
           </div>
         </MainMenu>
+
         {children}
       </body>
     </html>

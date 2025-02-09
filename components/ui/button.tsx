@@ -20,6 +20,8 @@ const buttonVariants = cva(
         ghost:
           'hover:bg-slate-100 hover:text-slate-900 dark:hover:bg-slate-800 dark:hover:text-slate-50',
         link: 'text-bluetiful underline-offset-4 hover:underline dark:text-slate-50 font-bold',
+        cotton:
+          'bg-cottonBall text-slate-900 shadow-sm hover:bg-bluetiful/30 dark:bg-cottonBall dark:text-slate-50 dark:hover:bg-cottonBall/90 ',
       },
       size: {
         default: 'h-9 px-4 py-2',
