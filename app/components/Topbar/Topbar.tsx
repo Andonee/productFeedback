@@ -14,7 +14,7 @@ import { PlusIcon } from 'lucide-react'
 
 const Topbar = () => {
   return (
-    <Card className='flex h-[50%] w-full rounded-none bg-ravenNight p-6 px-2 py-6 md:rounded-xl md:p-6'>
+    <Card className='flex w-full rounded-none bg-ravenNight p-6 px-2 py-6 md:rounded-xl md:p-6'>
       <CardContent className='flex w-full items-center justify-between'>
         <div className='flex items-center justify-between gap-4'>
           <div className='hidden md:block'>{bulbIcon({})}</div>
