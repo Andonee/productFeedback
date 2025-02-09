@@ -8,7 +8,7 @@ export const bulbIcon = ({ width, height, fill }: IconType) => {
     <svg
       width={iconWidth}
       height={iconHeight}
-      viewBox={`"0 0 ${iconWidth} ${iconHeight}"`}
+      viewBox={`0 0 ${iconWidth} ${iconHeight}`}
       fill='none'
       xmlns='http://www.w3.org/2000/svg'
     >

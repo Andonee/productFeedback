@@ -1,12 +1,13 @@
-import Suggestion from './Suggestion/Suggestion'
+import NoSuggestions from './NoSuggestions'
 
 const SuggestionList = () => {
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex h-full flex-col gap-4'>
+      {/* <Suggestion />
       <Suggestion />
       <Suggestion />
-      <Suggestion />
-      <Suggestion />
+      <Suggestion /> */}
+      <NoSuggestions />
     </div>
   )
 }

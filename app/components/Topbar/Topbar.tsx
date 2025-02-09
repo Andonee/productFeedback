@@ -1,6 +1,4 @@
-import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { colors } from '@/components/ui/colors'
 import {
   Select,
   SelectContent,
@@ -9,8 +7,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { bulbIcon } from '@/public/assets/icons'
-import { PlusIcon } from 'lucide-react'
+import { bulbIcon } from '@/public/icons'
+import AddFeedbackButton from '../AddFeedbackButton'
 
 const Topbar = () => {
   return (
@@ -49,9 +47,7 @@ const Topbar = () => {
             </Select>
           </div>
         </div>
-        <Button className='bg-promiscuousPink text-cottonBall hover:bg-promiscuousPink/90'>
-          <PlusIcon color={colors.cottonBall} /> Add Feedback
-        </Button>
+        <AddFeedbackButton />
       </CardContent>
     </Card>
   )
