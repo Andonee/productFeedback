@@ -29,6 +29,7 @@ export default function RootLayout({
     <html lang='en'>
       <body
         className={`${geistSans.variable} ${geistMono.variable} h-screen bg-ghostWhite antialiased`}
+        suppressHydrationWarning
       >
         <MainMenu>
           <div className='flex flex-col gap-4 p-4'>
