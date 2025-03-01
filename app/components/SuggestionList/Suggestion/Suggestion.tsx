@@ -1,21 +1,28 @@
+import { updateUpvote } from '@/app/actions'
 import Tag from '@/components/shared/Tag/Tag'
 import { Card, CardContent } from '@/components/ui/card'
 import { MessageCircle } from 'lucide-react'
 import { SuggestionType } from './types'
 import UpvoteButton from './UpvoteButton'
 
-const Suggestion = ({
+const Suggestion = async ({
   title,
   description,
   userId,
   feedbackId,
+  upvotes,
 }: SuggestionType) => {
   return (
     <Card>
       <CardContent className='flex items-center justify-between'>
         <div className='flex items-start gap-4 rounded-md p-4'>
           <div>
-            <UpvoteButton userId={userId} feedbackId={feedbackId} />
+            <UpvoteButton
+              userId={userId}
+              feedbackId={feedbackId}
+              onUpvoteClick={updateUpvote}
+              upvoteAmount={upvotes}
+            />
           </div>
           <div className='flex flex-col gap-2'>
             <div className='font-bold'>{title}</div>
