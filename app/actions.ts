@@ -1,10 +1,13 @@
 'use server'
 import prisma from '@/lib/prisma'
+import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import {
   CreateFeedbackType,
   EditFeedbackType,
+  EditUpvoteType,
   RemoveFeedbackType,
+  RemoveUpvoteType,
   TagType,
 } from './types/globalTypes'
 
@@ -61,8 +64,6 @@ export async function editFeedback(values: EditFeedbackType) {
 export async function deleteFeedback(values: RemoveFeedbackType) {
   const feefbackId = parseInt(values.feedbackId)
 
-  console.log('feefbackId', feefbackId)
-
   await prisma.feedback.delete({
     where: {
       feedbackId: feefbackId,
@@ -83,4 +84,68 @@ export async function getTags() {
   })
 
   return convertedTags
+}
+
+async function addUpvote(values: EditUpvoteType) {
+  if (!values || !values.feedbackId || !values.userId) {
+    throw new TypeError(
+      'The "payload" argument must be of type object and contain feedbackId and userId.',
+    )
+  }
+  const feedbackId = values.feedbackId
+  const userId = values.userId
+
+  await prisma.upvote.create({
+    data: {
+      feedback: {
+        connect: { feedbackId: feedbackId },
+      },
+      user: {
+        connect: { userId: userId },
+      },
+    },
+  })
+}
+
+async function removeUpvote(values: RemoveUpvoteType) {
+  const upvoteId = values.upvoteId
+  await prisma.upvote.delete({
+    where: {
+      id: upvoteId,
+    },
+  })
+}
+
+export async function updateUpvote(values: EditUpvoteType) {
+  const feedbackId = values.feedbackId
+  const userId = values.userId
+
+  const upvote = await prisma.upvote.findFirst({
+    where: {
+      feedbackId: feedbackId,
+      authorId: userId,
+    },
+  })
+
+  if (upvote) {
+    await removeUpvote({ upvoteId: upvote.id })
+  } else {
+    addUpvote(values)
+  }
+
+  revalidatePath('/')
+}
+
+export async function getUpvoteAmount(values: EditUpvoteType) {
+  const feedbackId = values.feedbackId
+  const userId = values.userId
+
+  const amount = await prisma.upvote.count({
+    where: {
+      feedbackId: feedbackId,
+      authorId: userId,
+    },
+  })
+
+  return amount
 }

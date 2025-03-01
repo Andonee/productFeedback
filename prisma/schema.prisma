@@ -21,6 +21,7 @@ model User {
   feedbacks Feedback[]
   comments Comment[]
   likes Like[]
+  upvotes Upvote[]
 }
 
 model Feedback {
@@ -35,6 +36,7 @@ model Feedback {
   likes Like[]
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
+  upvotes Upvote[]
 }
 
 model Comment {
@@ -59,4 +61,13 @@ model Tag {
   tagId Int @id @default(autoincrement())
   name String
   feedbacks Feedback[]
+}
+
+model Upvote {
+  id         String   @id @default(uuid())
+  authorId     Int
+  feedbackId Int
+  user       User     @relation(fields: [authorId], references: [userId])
+  feedback   Feedback @relation(fields: [feedbackId], references: [feedbackId])
+  @@unique([authorId, feedbackId]) // Ensures a user can only upvote a feedback once
 }
