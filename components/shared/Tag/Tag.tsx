@@ -9,9 +9,7 @@ type TagTypeProps = {
 }
 
 const Tag = ({ interactive, label, value, active }: TagTypeProps) => {
-  const onTagClick = () => {
-    console.log('clicked', value)
-  }
+  const onTagClick = () => {}
   return (
     <Badge
       onClick={interactive ? onTagClick : undefined}

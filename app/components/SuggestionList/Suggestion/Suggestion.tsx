@@ -1,6 +1,7 @@
 import { updateUpvote } from '@/app/actions'
 import Tag from '@/components/shared/Tag/Tag'
 import { Card, CardContent } from '@/components/ui/card'
+import prisma from '@/lib/prisma'
 import { MessageCircle } from 'lucide-react'
 import { SuggestionType } from './types'
 import UpvoteButton from './UpvoteButton'
@@ -12,6 +13,9 @@ const Suggestion = async ({
   feedbackId,
   upvotes,
 }: SuggestionType) => {
+  const commentAmount = prisma.comment.count({
+    where: { feedbackId: feedbackId },
+  })
   return (
     <Card>
       <CardContent className='flex items-center justify-between'>
@@ -38,7 +42,7 @@ const Suggestion = async ({
             <span className='[&>svg]:fill-oceanNight [&>svg]:text-oceanNight'>
               <MessageCircle />
             </span>
-            <span className='font-bold'>6</span>
+            <span className='font-bold'>{commentAmount}</span>
           </div>
         </div>
       </CardContent>

@@ -7,7 +7,6 @@ const SuggestionList = async () => {
   const suggestions = await prisma.feedback.findMany({
     include: { upvotes: true },
   })
-  console.log('suggestions', suggestions)
   return (
     <div className='flex h-full flex-col gap-4'>
       {suggestions.length > 0 ? (

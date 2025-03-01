@@ -47,3 +47,9 @@ export type UpvoteType = {
   userId: number
   id: string
 }
+
+export type CreateCommentType = {
+  feedbackId: number
+  content: string
+  userId: number
+}
