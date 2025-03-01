@@ -3,23 +3,24 @@ import GoBackButton from '@/components/shared/GoBackButton/GoBackButton'
 import { Button } from '@/components/ui/button'
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
+import AddComment from './components/AddComment/AddComment'
+import CommentList from './components/CommentList'
 
 const FeaturePage = async function Page({
   params,
 }: {
   params: Promise<{ id: string }>
 }) {
-  const feedbackId = (await params).id
-
-  console.log('feedbackId', feedbackId)
+  const feedbackId = parseInt((await params).id)
 
   const feedbackData = await prisma.feedback.findUnique({
     where: {
-      feedbackId: parseInt(feedbackId),
+      feedbackId: feedbackId,
+    },
+    include: {
+      upvotes: true,
     },
   })
-
-  console.log('feedbackData', feedbackData)
 
   if (!feedbackData) return <div>No data</div>
 
@@ -38,8 +39,11 @@ const FeaturePage = async function Page({
         title={title}
         description={description}
         userId={1}
-        feedbackId={1}
+        feedbackId={feedbackId}
+        upvotes={feedbackData.upvotes.length}
       />
+      <CommentList feedbackId={feedbackId} />
+      <AddComment feedbackId={feedbackId} userId={feedbackData.authorId} />
     </div>
   )
 }

@@ -3,6 +3,7 @@ import prisma from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import {
+  CreateCommentType,
   CreateFeedbackType,
   EditFeedbackType,
   EditUpvoteType,
@@ -15,8 +16,6 @@ export async function addFeedback(values: CreateFeedbackType) {
   const title = values.title
   const description = values.description
   const category = parseInt(values.category)
-
-  console.log('CREATE server values', values)
 
   await prisma.feedback.create({
     data: {
@@ -39,8 +38,6 @@ export async function editFeedback(values: EditFeedbackType) {
   const description = values.description
   const category = parseInt(values.category)
   const feefbackId = parseInt(values.feedbackId)
-
-  console.log('EDIT server values', values)
 
   await prisma.feedback.update({
     where: {
@@ -127,10 +124,12 @@ export async function updateUpvote(values: EditUpvoteType) {
     },
   })
 
+  console.log('values', values)
+
   if (upvote) {
     await removeUpvote({ upvoteId: upvote.id })
   } else {
-    addUpvote(values)
+    await addUpvote(values)
   }
 
   revalidatePath('/')
@@ -148,4 +147,31 @@ export async function getUpvoteAmount(values: EditUpvoteType) {
   })
 
   return amount
+}
+
+export async function addComment(values: CreateCommentType) {
+  if (!values || !values.feedbackId || !values.userId) {
+    throw new TypeError(
+      'The "payload" argument must be of type object and contain feedbackId and userId.',
+    )
+  }
+  const authorId = values.userId
+  const content = values.content
+  const feedbackId = values.feedbackId
+
+  console.log('values', values)
+
+  await prisma.comment.create({
+    data: {
+      content,
+      feedback: {
+        connect: { feedbackId: feedbackId },
+      },
+      author: {
+        connect: { userId: authorId },
+      },
+    },
+  })
+
+  revalidatePath(`/feature/${feedbackId}`)
 }
