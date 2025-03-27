@@ -13,25 +13,104 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum UserRole {
+  ADMIN
+  USER
+}
+
 model User {
-  userId    Int     @id @default(autoincrement())
+  id    String     @id @default(cuid())
   email String  @unique
+  image String?
   name  String
-  lastname String
+  emailVerified DateTime? @map("email_verified")
+  accounts      Account[]
+  isTwoFactorEnabled Boolean @default(false)
+  twoFactorConfirmation TwoFactorConfirmation?
+  lastname String?
+  password String?
+  role UserRole @default(USER)
   feedbacks Feedback[]
   comments Comment[]
   likes Like[]
   upvotes Upvote[]
+
+  @@map("users")
+}
+// model User {
+//   id            String    @id @default(cuid())
+//   name          String?
+//   email         String?   @unique
+//   emailVerified DateTime? @map("email_verified")
+//   image         String?
+//   accounts      Account[]
+ 
+//   @@map("users")
+// }
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String  @map("user_id")
+  type               String
+  provider           String
+  providerAccountId  String  @map("provider_account_id")
+  refresh_token      String? @db.Text
+  access_token       String? @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String? @db.Text
+  session_state      String?
+ 
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@unique([provider, providerAccountId])
 }
 
+model VerificationToken {
+  id String @id @default(cuid())
+  email String
+  token String @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model PasswordResetToken {
+  id String @id @default(cuid())
+  email String
+  token String @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorToken {
+  id String @id @default(cuid())
+  email String
+  token String @unique
+  expires DateTime
+
+  @@unique([email, token])
+}
+
+model TwoFactorConfirmation {
+  id String @id @default(cuid())
+  userId String
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId])
+}
+
+
 model Feedback {
-  feedbackId Int     @id @default(autoincrement())
-  author User @relation(fields: [authorId], references: [userId])
-  authorId Int
+  feedbackId String     @id @default(uuid())
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
   title String
   description String
   category Tag @relation(fields: [categoryId], references: [tagId])
-  categoryId Int
+  categoryId String
   comments Comment[]
   likes Like[]
   createdAt DateTime @default(now())
@@ -40,34 +119,34 @@ model Feedback {
 }
 
 model Comment {
-  commentId Int     @id @default(autoincrement())
-  author User @relation(fields:[authorId], references: [userId])
-  authorId Int
+  commentId String     @id @default(uuid())
+  author User @relation(fields:[authorId], references: [id])
+  authorId String
   feedback Feedback @relation(fields: [feedbackId], references: [feedbackId])
-  feedbackId Int
+  feedbackId String
   content String
   createdAt DateTime @default(now())
 }
 
 model Like {
-  likeId Int @id @default(autoincrement())
-  author User @relation(fields: [authorId], references: [userId])
-  authorId Int
+  likeId String @id @default(uuid())
+  author User @relation(fields: [authorId], references: [id])
+  authorId String
   feedback Feedback @relation(fields: [feedbackId], references: [feedbackId])
-  feedbackId Int
+  feedbackId String
 }
 
 model Tag {
-  tagId Int @id @default(autoincrement())
+  tagId String @id @default(uuid())
   name String
   feedbacks Feedback[]
 }
 
 model Upvote {
   id         String   @id @default(uuid())
-  authorId     Int
-  feedbackId Int
-  user       User     @relation(fields: [authorId], references: [userId])
+  authorId     String
+  feedbackId String
+  user       User     @relation(fields: [authorId], references: [id])
   feedback   Feedback @relation(fields: [feedbackId], references: [feedbackId])
   @@unique([authorId, feedbackId]) // Ensures a user can only upvote a feedback once
 }

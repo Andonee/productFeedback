@@ -1,4 +1,4 @@
 export type AddCommentProps = {
-  userId: number
-  feedbackId: number
+  userId: string
+  feedbackId: string
 }

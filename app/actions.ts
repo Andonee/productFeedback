@@ -15,7 +15,7 @@ import {
 export async function addFeedback(values: CreateFeedbackType) {
   const title = values.title
   const description = values.description
-  const category = parseInt(values.category)
+  const category = values.category
 
   await prisma.feedback.create({
     data: {
@@ -25,7 +25,7 @@ export async function addFeedback(values: CreateFeedbackType) {
         connect: { tagId: category },
       },
       author: {
-        connect: { userId: 1 },
+        connect: { id: '1' },
       },
     },
   })
@@ -36,8 +36,8 @@ export async function addFeedback(values: CreateFeedbackType) {
 export async function editFeedback(values: EditFeedbackType) {
   const title = values.title
   const description = values.description
-  const category = parseInt(values.category)
-  const feefbackId = parseInt(values.feedbackId)
+  const category = values.category
+  const feefbackId = values.feedbackId
 
   await prisma.feedback.update({
     where: {
@@ -50,7 +50,7 @@ export async function editFeedback(values: EditFeedbackType) {
         connect: { tagId: category },
       },
       author: {
-        connect: { userId: 1 },
+        connect: { id: '1' },
       },
     },
   })
@@ -59,7 +59,7 @@ export async function editFeedback(values: EditFeedbackType) {
 }
 
 export async function deleteFeedback(values: RemoveFeedbackType) {
-  const feefbackId = parseInt(values.feedbackId)
+  const feefbackId = values.feedbackId
 
   await prisma.feedback.delete({
     where: {
@@ -98,7 +98,7 @@ async function addUpvote(values: EditUpvoteType) {
         connect: { feedbackId: feedbackId },
       },
       user: {
-        connect: { userId: userId },
+        connect: { id: userId },
       },
     },
   })
@@ -168,7 +168,7 @@ export async function addComment(values: CreateCommentType) {
         connect: { feedbackId: feedbackId },
       },
       author: {
-        connect: { userId: authorId },
+        connect: { id: authorId },
       },
     },
   })
