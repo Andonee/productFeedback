@@ -15,3 +15,8 @@ export enum CategoryType {
   Enhancement = '4',
   Bug = '5',
 }
+
+export enum UserRole {
+  ADMIN = 'ADMIN',
+  USER = 'USER',
+}

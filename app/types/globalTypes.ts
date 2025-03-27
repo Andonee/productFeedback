@@ -34,8 +34,8 @@ export type RemoveFeedbackType = {
 }
 
 export type EditUpvoteType = {
-  feedbackId: number
-  userId: number
+  feedbackId: string
+  userId: string
 }
 
 export type RemoveUpvoteType = {
@@ -43,13 +43,13 @@ export type RemoveUpvoteType = {
 }
 
 export type UpvoteType = {
-  feedbackId: number
-  userId: number
+  feedbackId: string
+  userId: string
   id: string
 }
 
 export type CreateCommentType = {
-  feedbackId: number
+  feedbackId: string
   content: string
-  userId: number
+  userId: string
 }
