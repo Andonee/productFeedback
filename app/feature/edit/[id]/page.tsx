@@ -1,4 +1,4 @@
-import { getTags, editFeedback, deleteFeedback } from '@/app/actions'
+import { deleteFeedback, editFeedback, getTags } from '@/app/actions'
 import GoBackButton from '@/components/shared/GoBackButton/GoBackButton'
 import { Card, CardContent, CardTitle } from '@/components/ui/card'
 import prisma from '@/lib/prisma'
@@ -15,7 +15,7 @@ const EditFeedbackPage = async function Page({
 
   const feedbackData = await prisma.feedback.findFirst({
     where: {
-      feedbackId: parseInt(feedbackId),
+      feedbackId: feedbackId,
     },
   })
 

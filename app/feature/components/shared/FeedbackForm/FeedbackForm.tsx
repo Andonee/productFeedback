@@ -35,6 +35,7 @@ const FeedbackForm = ({ tags, ...rest }: FeedbackFormType) => {
   })
 
   function onSubmitHandler(values: z.infer<typeof FeatureFormSchema>) {
+    console.log('values', values)
 
     switch (rest.type) {
       case 'create':

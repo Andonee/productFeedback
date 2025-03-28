@@ -1,4 +1,5 @@
 'use server'
+import { auth } from '@/auth'
 import prisma from '@/lib/prisma'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
@@ -13,6 +14,7 @@ import {
 } from './types/globalTypes'
 
 export async function addFeedback(values: CreateFeedbackType) {
+  const session = await auth()
   const title = values.title
   const description = values.description
   const category = values.category
@@ -25,7 +27,7 @@ export async function addFeedback(values: CreateFeedbackType) {
         connect: { tagId: category },
       },
       author: {
-        connect: { id: '1' },
+        connect: { id: session?.user.id },
       },
     },
   })
@@ -34,6 +36,7 @@ export async function addFeedback(values: CreateFeedbackType) {
 }
 
 export async function editFeedback(values: EditFeedbackType) {
+  const session = await auth()
   const title = values.title
   const description = values.description
   const category = values.category
@@ -50,7 +53,7 @@ export async function editFeedback(values: EditFeedbackType) {
         connect: { tagId: category },
       },
       author: {
-        connect: { id: '1' },
+        connect: { id: session?.user.id },
       },
     },
   })

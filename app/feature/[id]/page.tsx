@@ -1,6 +1,7 @@
 import Suggestion from '@/app/components/SuggestionList/Suggestion'
 import GoBackButton from '@/components/shared/GoBackButton/GoBackButton'
 import { Button } from '@/components/ui/button'
+import { currentUser } from '@/lib/auth'
 import prisma from '@/lib/prisma'
 import Link from 'next/link'
 import AddComment from './components/AddComment/AddComment'
@@ -11,7 +12,10 @@ const FeaturePage = async function Page({
 }: {
   params: Promise<{ id: string }>
 }) {
-  const feedbackId = parseInt((await params).id)
+  const feedbackId = (await params).id
+  const user = await currentUser()
+
+  if (!user || !user.id) return <div>Not logged in</div>
 
   const feedbackData = await prisma.feedback.findUnique({
     where: {
@@ -38,7 +42,7 @@ const FeaturePage = async function Page({
       <Suggestion
         title={title}
         description={description}
-        userId={1}
+        userId={user.id}
         feedbackId={feedbackId}
         upvotes={feedbackData.upvotes.length}
       />
