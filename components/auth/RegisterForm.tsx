@@ -1,10 +1,13 @@
 'use client'
 import { register } from '@/app/actions/register'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useLocale, useTranslations } from 'next-intl'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { RegisterSchema } from '../../app/schemas/index'
+import {
+  getRegisterFormSchema,
+  RegisterFormValues,
+} from '../../app/schemas/index'
 import FormError from '../shared/FormError/FormError'
 import FormSuccess from '../shared/FormSuccess/FormError'
 import { Button } from '../ui/button'
@@ -23,9 +26,12 @@ const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
+  const locale = useLocale()
+  const validationMessages = useTranslations('Validation')
+  const t = useTranslations('LoginForm')
 
-  const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(getRegisterFormSchema(validationMessages)),
     defaultValues: {
       email: '',
       password: '',
@@ -34,7 +40,7 @@ const RegisterForm = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = (values: RegisterFormValues) => {
     setError('')
     setSuccess('')
 
@@ -50,7 +56,7 @@ const RegisterForm = () => {
     <CardWrapper
       headerLabel='Create an account'
       backButtonLabel='Already have an account?'
-      backButtonHref='/auth/login'
+      backButtonHref={`/${locale}/auth/login`}
       showSocial
     >
       <Form {...form}>
@@ -101,7 +107,7 @@ const RegisterForm = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('password')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='password' disabled={isPending} />
                   </FormControl>

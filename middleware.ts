@@ -1,6 +1,9 @@
 import NextAuth from 'next-auth'
+import createMiddleware from 'next-intl/middleware'
+import { getLocale } from 'next-intl/server'
 import { NextRequest, NextResponse } from 'next/server'
 import authConfig from './auth.config'
+import { routing } from './i18n/routing'
 import {
   apiAuthPrefix,
   authRoutes,
@@ -10,31 +13,58 @@ import {
 
 const { auth } = NextAuth(authConfig)
 
+// Create the next-intl middleware
+const intlMiddleware = createMiddleware(routing)
+
+const validateRoute = (
+  pathnames: string[],
+  locales: typeof routing.locales,
+) => {
+  return RegExp(
+    `^(/(${locales.join('|')}))?(${pathnames
+      .flatMap(p => (p === '/' ? ['', '/'] : p))
+      .join('|')})/?$`,
+    'i',
+  )
+}
+
+const publicPathnameRegex = validateRoute(publicRoutes, routing.locales)
+const authPathnameRegex = validateRoute(authRoutes, routing.locales)
+
 export default auth(async (req: NextRequest) => {
   const { nextUrl } = req
   const isLoggedIn = (req as any).auth
-
-  console.log('isLoggedIn', isLoggedIn)
+  const locale = await getLocale()
 
   const isApiAuthRoute = nextUrl.pathname.startsWith(apiAuthPrefix)
-  const isPublicRoute = publicRoutes.includes(nextUrl.pathname)
-  const isAuthRoute = authRoutes.includes(nextUrl.pathname)
+  // const isPublicRoute = addLocaleToPath(publicRoutes, routing.locales).includes(
+  //   nextUrl.pathname,
+  const isPublicRoute = publicPathnameRegex.test(nextUrl.pathname)
 
-  console.log('isAuthRoute', isAuthRoute)
+  const isAuthRoute = authPathnameRegex.test(nextUrl.pathname)
 
+  // Handle API authentication routes
   if (isApiAuthRoute) {
     return NextResponse.next()
   }
 
+  // Handle authentication routes
   if (isAuthRoute) {
     if (isLoggedIn) {
-      return Response.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
+      return NextResponse.redirect(new URL(DEFAULT_LOGIN_REDIRECT, nextUrl))
     }
     return NextResponse.next()
   }
 
+  // Redirect unauthenticated users to the login page for protected routes
   if (!isLoggedIn && !isPublicRoute) {
-    return Response.redirect(new URL('/auth/login', nextUrl))
+    return NextResponse.redirect(new URL(`/${locale}/auth/login`, nextUrl))
+  }
+
+  // Apply next-intl middleware for internationalized routing
+  const intlResponse = intlMiddleware(req)
+  if (intlResponse) {
+    return intlResponse
   }
 
   return NextResponse.next()

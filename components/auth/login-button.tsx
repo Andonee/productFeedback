@@ -1,6 +1,7 @@
 'use client'
 import { useRouter } from 'next/navigation'
 import React from 'react'
+import { useLocale } from 'use-intl/react'
 
 interface LoginButtonProps {
   children: React.ReactNode
@@ -14,9 +15,10 @@ const LoginButton = ({
   asChild,
 }: LoginButtonProps) => {
   const router = useRouter()
+  const locale = useLocale()
 
   const onClick = () => {
-    router.push('/auth/login')
+    router.push(`${locale}/auth/login`)
   }
 
   if (mode === 'modal') {

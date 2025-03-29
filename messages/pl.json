@@ -1,0 +1,19 @@
+{
+  "HomePage": {
+    "title": "Witaj świecie!",
+    "about": "Przejdź do strony o nas"
+  },
+  "LoginForm": {
+    "email": "Adres e-mail",
+    "password": "Hasło",
+    "login": "Zaloguj się",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "register": "Zarejestruj się"
+  },
+  "Validation": {
+    "required": "To pole jest wymagane",
+    "email": "Proszę podać poprawny adres e-mail",
+    "minLength": "Minimalna długość to {min} znaków",
+    "maxLength": "Maksymalna długość to {max} znaków"
+  }
+}

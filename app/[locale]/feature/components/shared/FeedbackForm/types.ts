@@ -1,4 +1,4 @@
-import { FeatureFormSchema } from '@/app/feature/create/validation'
+import { FeatureFormSchema } from '@/app/[locale]/feature/create/validation'
 import { RemoveFeedbackType, TagList } from '@/app/types/globalTypes'
 import { z } from 'zod'
 

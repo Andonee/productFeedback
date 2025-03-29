@@ -1,5 +1,5 @@
 'use client'
-import { CommentFormSchema } from '@/app/feature/components/shared/FeedbackForm/validation'
+import { CommentFormSchema } from '@/app/[locale]/feature/components/shared/FeedbackForm/validation'
 import { CreateCommentType } from '@/app/types/globalTypes'
 import { Button } from '@/components/ui/button'
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
