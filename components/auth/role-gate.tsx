@@ -2,6 +2,7 @@
 
 import { UserRole } from '@/app/types/enums'
 import { useCurrentRole } from '@/hooks/useCurrentRole'
+import { useTranslations } from 'next-intl'
 import FormError from '../shared/FormError/FormError'
 
 interface RoleGateProps {
@@ -11,9 +12,10 @@ interface RoleGateProps {
 
 export const RoleGate = ({ children, allowedRole }: RoleGateProps) => {
   const role = useCurrentRole()
+  const t = useTranslations('Authentication')
 
   if (role !== allowedRole) {
-    return <FormError message='You do not have permission to see the content' />
+    return <FormError message={t('noPermission')} />
   }
 
   return <>{children}</>

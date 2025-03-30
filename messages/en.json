@@ -1,19 +1,70 @@
 {
-  "HomePage": {
-    "title": "Hello world!",
-    "about": "Go to the about page"
+  "FeedbackBoard": {
+    "feedbackBoard": "Feedback Board",
+    "addFeedback": "Add Feedback",
+    "editFeedback": "Edit Feedback",
+    "deleteFeedback": "Delete Feedback",
+    "postComment": "Post Comment",
+    "addComment": "Add Comment",
+    "view": "View",
+    "noFeedback": "No Feedback",
+    "noFeedbackMessage": "Got a suggestion? Found a bug that needs to be squashed? We love hearing about new ideas to improve our app.",
+    "charactersLeft": "characters left",
+    "comment": "Comment",
+    "createNewFeedback": "Create New Feedback",
+    "feedbackTitle": "Title",
+    "feedbackTitleInfo": "Add a short, descriptive headline",
+    "feedbackDescription": "Description",
+    "feedbackDescriptionInfo": "Add any specific comments on what should be improved, added, etc.",
+    "feedbackCategory": "Category",
+    "feedbackCategoryInfo": "Choose the category where you want to place your feedback",
+    "feedbackSelectCategory": "Select a category"
   },
-  "LoginForm": {
-    "email": "Email address",
+  "Authentication": {
+    "email": "Email Address",
     "password": "Password",
-    "login": "Log in",
-    "forgotPassword": "Forgot your password?",
-    "register": "Register"
+    "login": "Log In",
+    "forgotPassword": "Forgot Password?",
+    "register": "Create Account",
+    "signOut": "Sign Out",
+    "twoFactorCode": "Two-Factor Code",
+    "confirm": "Confirm",
+    "backToLogin": "Back to Login",
+    "enterNewPassword": "Enter New Password",
+    "newPassword": "New Password",
+    "resetPassword": "Reset Password",
+    "confirmVerification": "Confirm Verification",
+    "name": "First Name",
+    "lastname": "Last Name",
+    "emailAddress": "Email Address",
+    "alreadyHaveAccount": "Already have an account? Log in",
+    "sendResetEmail": "Send Reset Email",
+    "nePermission": "You do not have permission to view the content of this page",
+    "noAccount": "Don't have an account yet? Sign up",
+    "welcomeBack": "Welcome Back"
   },
   "Validation": {
     "required": "This field is required",
     "email": "Please enter a valid email address",
     "minLength": "Minimum length is {min} characters",
     "maxLength": "Maximum length is {max} characters"
+  },
+  "utils": {
+    "goBack": "Go Back",
+    "cancel": "Cancel",
+    "submit": "Submit"
+  },
+  "user": {
+    "userId": "User ID",
+    "userName": "Username",
+    "userEmail": "User Email",
+    "userRole": "User Role",
+    "userTwoFactor": "User Two-Factor Verification"
+  },
+  "navbar": {
+    "server": "Server",
+    "client": "Client",
+    "admin": "Administrator",
+    "settings": "Settings"
   }
 }

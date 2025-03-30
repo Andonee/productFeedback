@@ -32,7 +32,7 @@ export function getLoginFormSchema(t?: (key: string) => string) {
     email: z.string().email({
       message: t ? t('required') : 'This field is required',
     }),
-    password: z.string().email({
+    password: z.string().min(1, {
       message: t ? t('required') : 'This field is required',
     }),
     code: z.optional(z.string()),

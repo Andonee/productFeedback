@@ -12,6 +12,7 @@ import {
 } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -24,6 +25,8 @@ const FeedbackForm = ({ tags, ...rest }: FeedbackFormType) => {
   const title = rest.type === 'edit' ? rest.title : ''
   const description = rest.type === 'edit' ? rest.description : ''
   const tag = rest.type === 'edit' ? rest.tag : ''
+  const t = useTranslations('FeedbackBoard')
+  const utils = useTranslations('utils')
 
   const form = useForm<z.infer<typeof FeatureFormSchema>>({
     resolver: zodResolver(FeatureFormSchema),
@@ -61,8 +64,8 @@ const FeedbackForm = ({ tags, ...rest }: FeedbackFormType) => {
           render={({ field }) => {
             return (
               <InputSection
-                label='Feedback Title'
-                description='Add a short, descriptive headline'
+                label={t('feedbackTitle')}
+                description={t('feedbackTitleInfo')}
               >
                 <Input {...field} />
               </InputSection>
@@ -75,8 +78,8 @@ const FeedbackForm = ({ tags, ...rest }: FeedbackFormType) => {
           render={({ field }) => {
             return (
               <InputSection
-                label='Category'
-                description='Choose a category for your feedback'
+                label={t('feedbackCategory')}
+                description={t('feedbackCategoryInfo')}
               >
                 <Select
                   onValueChange={field.onChange}
@@ -84,7 +87,7 @@ const FeedbackForm = ({ tags, ...rest }: FeedbackFormType) => {
                 >
                   <FormControl>
                     <SelectTrigger>
-                      <SelectValue placeholder='Select a category' />
+                      <SelectValue placeholder={t('feedbackSelectCategory')} />
                     </SelectTrigger>
                   </FormControl>
                   <SelectContent>
@@ -105,8 +108,8 @@ const FeedbackForm = ({ tags, ...rest }: FeedbackFormType) => {
           render={({ field }) => {
             return (
               <InputSection
-                label='Feedback Detail'
-                description='Include any specific comments on what should be improved, added, etc.'
+                label={t('feedbackDescription')}
+                description={t('feedbackDescriptionInfo')}
               >
                 <Textarea {...field} />
               </InputSection>
@@ -126,11 +129,11 @@ const FeedbackForm = ({ tags, ...rest }: FeedbackFormType) => {
           <div className='flex justify-end gap-4'>
             <Link href={'/'}>
               <Button type='button' variant='cancel'>
-                Cancel
+                {utils('cancel')}
               </Button>
             </Link>
             <Button type='submit' variant='confirm'>
-              Submit
+              {utils('submit')}
             </Button>
           </div>
         </div>

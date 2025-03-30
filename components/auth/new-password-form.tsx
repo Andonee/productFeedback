@@ -1,6 +1,7 @@
 'use client'
 import { newPassword } from '@/app/actions/new-password'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
@@ -23,6 +24,9 @@ import CardWrapper from './CardWrapper'
 const NewPasswordForm = () => {
   const searchParams = useSearchParams()
   const token = searchParams.get('token')
+  const locale = useLocale()
+
+  const t = useTranslations('Authentication')
 
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>('')
@@ -55,9 +59,9 @@ const NewPasswordForm = () => {
   }
   return (
     <CardWrapper
-      headerLabel='Enter a new password'
-      backButtonLabel='Back to login'
-      backButtonHref='/auth/login'
+      headerLabel={t('enterNewPassword')}
+      backButtonLabel={t('backToLogin')}
+      backButtonHref={`${locale}/auth/login`}
     >
       <Form {...form}>
         <form className='space-y-6' onSubmit={form.handleSubmit(onSubmit)}>
@@ -67,7 +71,7 @@ const NewPasswordForm = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>New password</FormLabel>
+                  <FormLabel>{t('newPassword')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='password' disabled={isPending} />
                   </FormControl>
@@ -79,7 +83,7 @@ const NewPasswordForm = () => {
           <FormSuccess message={success} />
           <FormError message={error} />
           <Button type='submit' className='w-full' disabled={isPending}>
-            Reset password
+            {t('resetPassword')}
           </Button>
         </form>
       </Form>

@@ -29,7 +29,7 @@ const LoginForm = () => {
   const [success, setSuccess] = useState<string | undefined>('')
   const locale = useLocale()
 
-  const t = useTranslations('LoginForm')
+  const t = useTranslations('Authentication')
   const validationMessages = useTranslations('Validation')
 
   const router = useRouter()
@@ -51,6 +51,8 @@ const LoginForm = () => {
   const onSubmit = (values: LoginFormValues) => {
     setError('')
     setSuccess('')
+
+    console.log('values', values)
 
     startTransition(() => {
       login(values)
@@ -78,8 +80,8 @@ const LoginForm = () => {
   }
   return (
     <CardWrapper
-      headerLabel='Welcome back'
-      backButtonLabel="Don't have an account?"
+      headerLabel={t('welcomeBack')}
+      backButtonLabel={t('noAccount')}
       backButtonHref={`/${locale}/auth/register`}
       showSocial
     >
@@ -92,7 +94,7 @@ const LoginForm = () => {
                 name='code'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormLabel>{t('twoFactorCode')}</FormLabel>
                     <FormControl>
                       <Input {...field} disabled={isPending} />
                     </FormControl>
@@ -135,7 +137,9 @@ const LoginForm = () => {
                         asChild
                         className='px-0 font-normal'
                       >
-                        <Link href='/auth/reset'>Forgot password</Link>
+                        <Link href={`/${locale}</Button>/auth/reset`}>
+                          {t('forgotPassword')}
+                        </Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -147,7 +151,7 @@ const LoginForm = () => {
           <FormSuccess message={success} />
           <FormError message={error || urlError} />
           <Button type='submit' className='w-full' disabled={isPending}>
-            {showTwoFactor ? 'Confirm' : 'Login'}
+            {showTwoFactor ? `${t('confirm')}` : `${t('login')}`}
           </Button>
         </form>
       </Form>

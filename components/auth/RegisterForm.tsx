@@ -28,7 +28,7 @@ const RegisterForm = () => {
   const [success, setSuccess] = useState<string | undefined>('')
   const locale = useLocale()
   const validationMessages = useTranslations('Validation')
-  const t = useTranslations('LoginForm')
+  const t = useTranslations('Authentication')
 
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(getRegisterFormSchema(validationMessages)),
@@ -54,8 +54,8 @@ const RegisterForm = () => {
   }
   return (
     <CardWrapper
-      headerLabel='Create an account'
-      backButtonLabel='Already have an account?'
+      headerLabel={t('register')}
+      backButtonLabel={t('alreadyHaveAccount')}
       backButtonHref={`/${locale}/auth/login`}
       showSocial
     >
@@ -67,7 +67,7 @@ const RegisterForm = () => {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t('name')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='name' disabled={isPending} />
                   </FormControl>
@@ -80,7 +80,7 @@ const RegisterForm = () => {
               name='lastname'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Lastname</FormLabel>
+                  <FormLabel>{t('lastname')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='lastname' disabled={isPending} />
                   </FormControl>
@@ -93,7 +93,7 @@ const RegisterForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('emailAddress')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='email' disabled={isPending} />
                   </FormControl>
@@ -119,7 +119,7 @@ const RegisterForm = () => {
           <FormSuccess message={success} />
           <FormError message={error} />
           <Button type='submit' className='w-full' disabled={isPending}>
-            Register
+            {t('register')}
           </Button>
         </form>
       </Form>
