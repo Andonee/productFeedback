@@ -1,8 +1,8 @@
-import HeaderCard from './components/HeaderCard/HeaderCard'
-import RoadmapCard from './components/RoadmapCard'
-import SuggestionList from './components/SuggestionList'
-import TagsCard from './components/TagsCard'
-import Topbar from './components/Topbar'
+import HeaderCard from '../components/HeaderCard/HeaderCard'
+import RoadmapCard from '../components/RoadmapCard'
+import SuggestionList from '../components/SuggestionList'
+import TagsCard from '../components/TagsCard'
+import Topbar from '../components/Topbar'
 
 export default function Home() {
   return (

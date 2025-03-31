@@ -1,10 +1,11 @@
 'use client'
-import { CommentFormSchema } from '@/app/feature/components/shared/FeedbackForm/validation'
+import { CommentFormSchema } from '@/app/[locale]/feature/components/shared/FeedbackForm/validation'
 import { CreateCommentType } from '@/app/types/globalTypes'
 import { Button } from '@/components/ui/button'
 import { Form, FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Textarea } from '@/components/ui/textarea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useTranslations } from 'next-intl'
 import { useMemo } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -20,6 +21,7 @@ const AddCommentForm = ({
   const form = useForm<z.infer<typeof CommentFormSchema>>({
     resolver: zodResolver(CommentFormSchema),
   })
+  const t = useTranslations('FeedbackBoard')
 
   function onSubmitHandler(values: z.infer<typeof CommentFormSchema>) {
     const payload: CreateCommentType = {
@@ -60,9 +62,11 @@ const AddCommentForm = ({
 
         <FormMessage />
         <div className='flex flex-col items-center justify-between gap-4 md:flex-row'>
-          <span>{commentContentLengthLeft} characters left</span>
+          <span>
+            {commentContentLengthLeft} {t('charactersLeft')}
+          </span>
           <Button type='submit' variant='confirm'>
-            Post Comment
+            {t('postComment')}
           </Button>
         </div>
       </form>

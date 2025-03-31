@@ -1,10 +1,13 @@
 'use client'
 import { register } from '@/app/actions/register'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useLocale, useTranslations } from 'next-intl'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { RegisterSchema } from '../../app/schemas/index'
+import {
+  getRegisterFormSchema,
+  RegisterFormValues,
+} from '../../app/schemas/index'
 import FormError from '../shared/FormError/FormError'
 import FormSuccess from '../shared/FormSuccess/FormError'
 import { Button } from '../ui/button'
@@ -23,9 +26,12 @@ const RegisterForm = () => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
+  const locale = useLocale()
+  const validationMessages = useTranslations('Validation')
+  const t = useTranslations('Authentication')
 
-  const form = useForm<z.infer<typeof RegisterSchema>>({
-    resolver: zodResolver(RegisterSchema),
+  const form = useForm<RegisterFormValues>({
+    resolver: zodResolver(getRegisterFormSchema(validationMessages)),
     defaultValues: {
       email: '',
       password: '',
@@ -34,7 +40,7 @@ const RegisterForm = () => {
     },
   })
 
-  const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
+  const onSubmit = (values: RegisterFormValues) => {
     setError('')
     setSuccess('')
 
@@ -48,9 +54,9 @@ const RegisterForm = () => {
   }
   return (
     <CardWrapper
-      headerLabel='Create an account'
-      backButtonLabel='Already have an account?'
-      backButtonHref='/auth/login'
+      headerLabel={t('register')}
+      backButtonLabel={t('alreadyHaveAccount')}
+      backButtonHref={`/${locale}/auth/login`}
       showSocial
     >
       <Form {...form}>
@@ -61,7 +67,7 @@ const RegisterForm = () => {
               name='name'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Name</FormLabel>
+                  <FormLabel>{t('name')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='name' disabled={isPending} />
                   </FormControl>
@@ -74,7 +80,7 @@ const RegisterForm = () => {
               name='lastname'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Lastname</FormLabel>
+                  <FormLabel>{t('lastname')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='lastname' disabled={isPending} />
                   </FormControl>
@@ -87,7 +93,7 @@ const RegisterForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('emailAddress')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='email' disabled={isPending} />
                   </FormControl>
@@ -101,7 +107,7 @@ const RegisterForm = () => {
               name='password'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Password</FormLabel>
+                  <FormLabel>{t('password')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='password' disabled={isPending} />
                   </FormControl>
@@ -113,7 +119,7 @@ const RegisterForm = () => {
           <FormSuccess message={success} />
           <FormError message={error} />
           <Button type='submit' className='w-full' disabled={isPending}>
-            Register
+            {t('register')}
           </Button>
         </form>
       </Form>

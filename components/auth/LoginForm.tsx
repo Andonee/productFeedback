@@ -1,12 +1,13 @@
 'use client'
 import { login } from '@/app/actions/login'
+import { getLoginFormSchema } from '@/app/schemas'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useLocale, useTranslations } from 'next-intl'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useState, useTransition } from 'react'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { LoginSchema } from '../../app/schemas/index'
+import { LoginFormValues } from '../../app/schemas/index'
 import FormError from '../shared/FormError/FormError'
 import FormSuccess from '../shared/FormSuccess/FormError'
 import { Button } from '../ui/button'
@@ -26,6 +27,10 @@ const LoginForm = () => {
   const [showTwoFactor, setShowTwoFactor] = useState(false)
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
+  const locale = useLocale()
+
+  const t = useTranslations('Authentication')
+  const validationMessages = useTranslations('Validation')
 
   const router = useRouter()
 
@@ -35,17 +40,19 @@ const LoginForm = () => {
       ? 'Email already in use with different provider'
       : ''
 
-  const form = useForm<z.infer<typeof LoginSchema>>({
-    resolver: zodResolver(LoginSchema),
+  const form = useForm<LoginFormValues>({
+    resolver: zodResolver(getLoginFormSchema(validationMessages)),
     defaultValues: {
       email: '',
       password: '',
     },
   })
 
-  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+  const onSubmit = (values: LoginFormValues) => {
     setError('')
     setSuccess('')
+
+    console.log('values', values)
 
     startTransition(() => {
       login(values)
@@ -73,9 +80,9 @@ const LoginForm = () => {
   }
   return (
     <CardWrapper
-      headerLabel='Welcome back'
-      backButtonLabel="Don't have an account?"
-      backButtonHref='/auth/register'
+      headerLabel={t('welcomeBack')}
+      backButtonLabel={t('noAccount')}
+      backButtonHref={`/${locale}/auth/register`}
       showSocial
     >
       <Form {...form}>
@@ -87,7 +94,7 @@ const LoginForm = () => {
                 name='code'
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Two Factor Code</FormLabel>
+                    <FormLabel>{t('twoFactorCode')}</FormLabel>
                     <FormControl>
                       <Input {...field} disabled={isPending} />
                     </FormControl>
@@ -103,7 +110,7 @@ const LoginForm = () => {
                   name='email'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel>{t('email')}</FormLabel>
                       <FormControl>
                         <Input {...field} type='email' disabled={isPending} />
                       </FormControl>
@@ -116,7 +123,7 @@ const LoginForm = () => {
                   name='password'
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Password</FormLabel>
+                      <FormLabel>{t('password')}</FormLabel>
                       <FormControl>
                         <Input
                           {...field}
@@ -130,7 +137,9 @@ const LoginForm = () => {
                         asChild
                         className='px-0 font-normal'
                       >
-                        <Link href='/auth/reset'>Forgot password</Link>
+                        <Link href={`/${locale}</Button>/auth/reset`}>
+                          {t('forgotPassword')}
+                        </Link>
                       </Button>
                       <FormMessage />
                     </FormItem>
@@ -142,7 +151,7 @@ const LoginForm = () => {
           <FormSuccess message={success} />
           <FormError message={error || urlError} />
           <Button type='submit' className='w-full' disabled={isPending}>
-            {showTwoFactor ? 'Confirm' : 'Login'}
+            {showTwoFactor ? `${t('confirm')}` : `${t('login')}`}
           </Button>
         </form>
       </Form>

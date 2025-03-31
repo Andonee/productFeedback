@@ -1,0 +1,70 @@
+{
+  "FeedbackBoard": {
+    "feedbackBoard": "Tablica opinii",
+    "addFeedback": "Dodaj opinię",
+    "editFeedback": "Edytuj opinię",
+    "deleteFeedback": "Usuń opinię",
+    "postComment": "Dodaj komentarz",
+    "addComment": "Dodaj komentarz",
+    "view": "Zobacz",
+    "noFeedback": "Brak opinii",
+    "noFeedbackMessage": "Masz sugestię? Znalazłeś błąd, który trzeba wyeliminować Uwielbiamy słyszeć o nowych pomysłach na ulepszenie naszej aplikacji.",
+    "charactersLeft": "znaków pozostało",
+    "comment": "Komentarz",
+    "createNewFeedback": "Utwórz nową opinię",
+    "feedbackTitle": "Tytuł",
+    "feedbackTitleInfo": "Dodaj krótki, opisowy nagłówek",
+    "feedbackDescription": "Opis",
+    "feedbackDescriptionInfo": "Dodaj wszelkie szczegółowe komentarze dotyczące tego, co należy ulepszyć, dodać itp.",
+    "feedbackCategory": "Kategoria",
+    "feedbackCategoryInfo": "Wybierz kategorię, w której chcesz umieścić swoją opinię",
+    "feedbackSelectCategory": "Wybierz kategorię"
+  },
+  "Authentication": {
+    "email": "Adres e-mail",
+    "password": "Hasło",
+    "login": "Zaloguj się",
+    "forgotPassword": "Nie pamiętasz hasła?",
+    "register": "Utwórz konto",
+    "signOut": "Wyloguj się",
+    "twoFactorCode": "Kod dwuetapowy",
+    "confirm": "Potwierdź",
+    "backToLogin": "Wróć do logowania",
+    "enterNewPassword": "Wprowadź nowe hasło",
+    "newPassword": "Nowe hasło",
+    "resetPassword": "Zresetuj hasło",
+    "confirmVerification": "Potwierdź weryfikację",
+    "name": "Imię",
+    "lastname": "Nazwisko",
+    "emailAddress": "Adres e-mail",
+    "alreadyHaveAccount": "Masz już konto? Zaloguj się",
+    "sendResetEmail": "Wyślij e-mail resetujący hasło",
+    "nePermission": "Nie masz uprawnień do przeglądania treści tej strony",
+    "noAccount": "Nie masz jeszcze konta? Zarejestruj się",
+    "welcomeBack": "Witamy z powrotem"
+  },
+  "Validation": {
+    "required": "To pole jest wymagane",
+    "email": "Proszę podać poprawny adres e-mail",
+    "minLength": "Minimalna długość to {min} znaków",
+    "maxLength": "Maksymalna długość to {max} znaków"
+  },
+  "utils": {
+    "goBack": "Wróć",
+    "cancel": "Anuluj",
+    "submit": "Wyślij"
+  },
+  "user": {
+    "userId": "Identyfikator użytkownika",
+    "userName": "Nazwa użytkownika",
+    "userEmail": "E-mail użytkownika",
+    "userRole": "Rola użytkownika",
+    "userTwoFactor": "Dwuetapowa weryfikacja użytkownika"
+  },
+  "navbar": {
+    "server": "Serwer",
+    "client": "Klient",
+    "admin": "Administrator",
+    "settings": "Ustawienia"
+  }
+}

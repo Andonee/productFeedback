@@ -1,10 +1,12 @@
 'use client'
 import { signIn } from 'next-auth/react'
+import { useLocale } from 'next-intl'
 import { FaGithub } from 'react-icons/fa'
 import { FcGoogle } from 'react-icons/fc'
 import { Button } from '../ui/button'
 
 const Social = () => {
+  const locale = useLocale()
   const onClick = (provider: 'google' | 'github') => {
     // signIn(provider, {
     //   callbackUrl: DEFAULT_LOGIN_REDIRECT,
@@ -12,8 +14,7 @@ const Social = () => {
 
     signIn(provider)
     signIn(provider).catch(() => {
-      console.log('aaaa', window.location.href)
-      return (window.location.href = '/auth/login?error=OAuthAccountNotLinked')
+      return (window.location.href = `/${locale}/auth/login?error=OAuthAccountNotLinked`)
     })
   }
   return (

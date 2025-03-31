@@ -19,11 +19,16 @@ import {
 } from '../ui/form'
 import { Input } from '../ui/input'
 import CardWrapper from './CardWrapper'
+import { useLocale, useTranslations } from 'next-intl'
 
 const ResetForm = () => {
   const [isPending, startTransition] = useTransition()
   const [error, setError] = useState<string | undefined>('')
   const [success, setSuccess] = useState<string | undefined>('')
+
+  const locale = useLocale()
+
+  const t = useTranslations('Authentication')
 
   const router = useRouter()
 
@@ -45,16 +50,16 @@ const ResetForm = () => {
         setSuccess(data.success)
 
         if (data.success === '') {
-          router.push('/settings')
+          router.push(`/${locale}/settings`)
         }
       })
     })
   }
   return (
     <CardWrapper
-      headerLabel='Forgot your password?'
-      backButtonLabel='Back to login'
-      backButtonHref='/auth/login'
+      headerLabel={t('forgotPassword')}
+      backButtonLabel={t('alreadbackToLoginyHaveAccount')}
+      backButtonHref={`${locale}/auth/login`}
     >
       <Form {...form}>
         <form className='space-y-6' onSubmit={form.handleSubmit(onSubmit)}>
@@ -64,7 +69,7 @@ const ResetForm = () => {
               name='email'
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Email</FormLabel>
+                  <FormLabel>{t('emailAddress')}</FormLabel>
                   <FormControl>
                     <Input {...field} type='email' disabled={isPending} />
                   </FormControl>
@@ -76,7 +81,7 @@ const ResetForm = () => {
           <FormSuccess message={success} />
           <FormError message={error} />
           <Button type='submit' className='w-full' disabled={isPending}>
-            Send reset email
+            {t('sendResetEmail')}
           </Button>
         </form>
       </Form>
